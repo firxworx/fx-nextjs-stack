@@ -7,11 +7,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.smooth-scroll {
-  scroll-behavior: smooth;
-}
-
 @layer base {
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
   html {
     @apply smooth-scroll;
   }
