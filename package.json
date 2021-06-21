@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "build:static": "next build && next export -o dist",
+    "dev": "next dev",
+    "export": "next export -o dist",
     "start": "next start",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
     "lint": "next lint"
   },
   "dependencies": {
