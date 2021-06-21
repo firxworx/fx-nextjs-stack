@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
-};
+}
 
 // function style:
 // module.exports = (phase, { defaultConfig }) => {

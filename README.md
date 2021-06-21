@@ -2,15 +2,17 @@
 
 This project is a boilerplate/starter for React projects written in TypeScript and powered by [NextJS](https://nextjs.org/) and [TailwindCSS](https://tailwindcss.com/).
 
-This project reflects an opinionated foundation of a certain flavour of modern front-end projects. It is intended to serve a particular development workflow by streamlining the "spin up" of new front-end projects.
+This project reflects an opinionated foundation for a certain flavour of modern front-end projects. It is intended to support a particular development workflow by streamlining the "spin up" of new projects.
 
-The configuration is intended to support building the project via NextJS' [static export](https://nextjs.org/docs/advanced-features/static-html-export) feature.
+The configuration is intended to support build/export of a static site via NextJS' [static export](https://nextjs.org/docs/advanced-features/static-html-export) feature.
 
 Additional considerations:
 
 - `yarn` package manager
 - build targets `es6` (refer to `tsconfig.json`)
 - exports with trailing slash (refer to `next.config.js`)
+
+If you are using VSCode, the `.vscode.sample/` folder provides a sample configuration for VSCode to recognize TailwindCSS directives.The sample configuration can be incorporated into the folder `.vscode/` in the root of your project.
 
 ## Development
 
