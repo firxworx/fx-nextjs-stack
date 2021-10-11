@@ -1,23 +1,27 @@
 # fx-nextjs-stack
 
-Boilerplate/starter for React projects written in TypeScript and powered by [NextJS](https://nextjs.org/) and [TailwindCSS](https://tailwindcss.com/).
+Starter/boilerplate for React projects written in TypeScript and powered by [NextJS](https://nextjs.org/) + [TailwindCSS](https://tailwindcss.com/). 
 
-This is an opinionated foundation for a particular flavour of a JS-driven front-end project. It supports a development workflow by streamlining the "spin up" of new projects.
-
-The configuration is intended to support building + exporting a static site via NextJS' [static export](https://nextjs.org/docs/advanced-features/static-html-export) feature.
+This project is intended for export as a static site (i.e. a client-side SPA) via NextJS' [static export](https://nextjs.org/docs/advanced-features/static-html-export) feature. NextJS' server-side features such as `pages/api`, SSR, etc are not supported by design. 
 
 Features & considerations:
 
 - `yarn` package manager
-- build targets `es6` (refer to `tsconfig.json`)
-- exports with trailing slash (refer to `next.config.js`)
+- build targets `es6` to favour modern web browsers (refer to `tsconfig.json`)
+- static exports include trailing slash (refer to `next.config.js`)
 - default font is Inter (refer to `tailwind.config.js` and `src/_document.tsx`)
-
-If you are using VSCode, the `.vscode.sample/` folder provides a sample configuration for VSCode to recognize TailwindCSS directives. Manage your configuration by creating or editing the `.vscode/` folder in the root of your project. 
 
 ## Development
 
-Project code including NextJS pages and components should be added to the `src/` folder.
+All project source code is housed under the `src/` folder. NextJS pages are under `src/pages/` and components are under `src/components`.
+
+### Setup
+
+Install project dependencies by running `yarn`.
+
+If you are using VSCode, the `.vscode.sample/` folder provides a sample configuration for VSCode to recognize TailwindCSS directives. Manage your configuration by creating or editing the `.vscode/` folder in the root of your project.
+
+### Workflow
 
 To start the development server:
 
