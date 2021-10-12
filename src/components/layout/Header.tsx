@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import clsx from 'clsx'
+
 // import Image from 'next/image'
 
 function classNames(...classes: any) {
@@ -16,13 +18,69 @@ const LogoPlaceholder: React.FC = () => {
   )
 }
 
-const MenuPlaceholder: React.FC = () => {
-  return <div className="h-8 w-8 rounded-full bg-green-200" />
+const AvatarPlaceholder: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
+  return (
+    <div
+      className={clsx(
+        'flex justify-center items-center rounded-full bg-green-200 text-sm uppercase',
+        isMobile ? 'h-10 w-10' : 'h-8 w-8',
+      )}
+    >
+      X
+    </div>
+  )
 }
 
-const AvatarPlaceholder: React.FC = () => {
-  return <div className="flex justify-center items-center h-10 w-10 rounded-full bg-red-200 text-sm uppercase">X</div>
+interface NavLinkProps {
+  href: string
+  name: string
+  isCurrent?: boolean
 }
+
+const NavLink: React.FC<NavLinkProps & { variant: 'desktop' | 'mobile' }> = ({
+  href,
+  name,
+  variant,
+  isCurrent = false,
+}) => {
+  return (
+    <a
+      href={href}
+      className={clsx(
+        'font-medium text-base',
+        ' hover:border-gray-300 hover:text-gray-700',
+        isCurrent ? 'border-indigo-500' : 'border-transparent text-gray-500',
+        {
+          ['inline-flex items-center px-1 pt-1 border-b-2']: variant === 'desktop',
+          ['text-gray-900']: variant === 'desktop' && isCurrent,
+          ['block hover:bg-gray-50 pl-3 pr-4 py-2 border-l-4']: variant === 'mobile',
+          ['bg-indigo-50 text-indigo-700']: variant === 'mobile' && isCurrent,
+        },
+      )}
+    >
+      {name}
+    </a>
+  )
+}
+
+const MenuLink: React.FC<{}> = ({}) => {
+  return <></>
+}
+
+const links: Array<NavLinkProps> = [
+  {
+    href: '/',
+    name: 'Dashboard',
+  },
+  {
+    href: '/projects',
+    name: 'Projects',
+  },
+  {
+    href: '/widgets',
+    name: 'Widgets',
+  },
+]
 
 export const Header: React.FC = () => {
   return (
@@ -37,30 +95,15 @@ export const Header: React.FC = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="#"
-                    className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Dashboard
-                  </a>
-                  <a
-                    href="#"
-                    className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Team
-                  </a>
-                  <a
-                    href="#"
-                    className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Projects
-                  </a>
-                  <a
-                    href="#"
-                    className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Calendar
-                  </a>
+                  {links.map((link) => (
+                    <NavLink
+                      key={link.href}
+                      href={link.href}
+                      name={link.name}
+                      variant="desktop"
+                      isCurrent={link.name === 'Dashboard'}
+                    />
+                  ))}
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -76,7 +119,7 @@ export const Header: React.FC = () => {
                       <div>
                         <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                           <span className="sr-only">Open user menu</span>
-                          <MenuPlaceholder />
+                          <AvatarPlaceholder isMobile={false} />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -154,40 +197,24 @@ export const Header: React.FC = () => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="pt-2 pb-3 space-y-1">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <a
-                href="#"
-                className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Dashboard
-              </a>
-              <a
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Team
-              </a>
-              <a
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Projects
-              </a>
-              <a
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Calendar
-              </a>
+              {links.map((link) => (
+                <NavLink
+                  key={link.href}
+                  href={link.href}
+                  name={link.name}
+                  variant="mobile"
+                  isCurrent={link.name === 'Dashboard'}
+                />
+              ))}
             </div>
             <div className="pt-4 pb-3 border-t border-gray-200">
               <div className="flex items-center px-4">
                 <div className="flex-shrink-0">
-                  <AvatarPlaceholder />
+                  <AvatarPlaceholder isMobile />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium text-gray-800">Tom Cook</div>
-                  <div className="text-sm font-medium text-gray-500">tom@example.com</div>
+                  <div className="text-base font-medium text-gray-800">Bob Smith</div>
+                  <div className="text-sm font-medium text-gray-500">bob@example.com</div>
                 </div>
                 <button className="ml-auto flex-shrink-0 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   <span className="sr-only">View notifications</span>
@@ -199,7 +226,7 @@ export const Header: React.FC = () => {
                   href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
                 >
-                  Your Profile
+                  Profile
                 </a>
                 <a
                   href="#"
