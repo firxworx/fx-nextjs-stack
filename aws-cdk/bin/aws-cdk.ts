@@ -13,6 +13,22 @@ const env = {
   account: app.node.tryGetContext('account') || process.env.CDK_INTEG_ACCOUNT || process.env.CDK_DEFAULT_ACCOUNT,
 }
 
+const PROJECT_TAG = 'nextapp'
+
 new AwsCdkStack(app, 'AwsCdkStack', {
   env,
+  project: {
+    tag: PROJECT_TAG,
+    domain: 'algo.bid',
+  },
+  app: {
+    name: PROJECT_TAG,
+    description: '',
+  },
+  github: {
+    owner: 'firxworx',
+    repository: '@firxworx/fx-nextjs-stack',
+    defaultBranch: 'main',
+    tokenSecretId: 'github-access-token',
+  },
 })
