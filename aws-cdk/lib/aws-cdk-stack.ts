@@ -77,23 +77,30 @@ export class AwsCdkStack extends cdk.Stack {
       autoBranchDeletion: true,
       buildSpec: codebuild.BuildSpec.fromObject({
         version: '1.0',
-        frontend: {
-          phases: {
-            preBuild: {
-              commands: ['yarn install'],
-            },
-            build: {
-              commands: ['yarn build:static'],
+        applications: [
+          {
+            appRoot: '/',
+            frontend: {
+              phases: {
+                preBuild: {
+                  // if required, add commands to install global packages
+                  commands: ['yarn install'],
+                },
+                build: {
+                  // if required, add commands to run tests
+                  commands: ['yarn build:static'],
+                },
+              },
+              artifacts: {
+                baseDirectory: '/dist', // '/', '.next' if not static
+                files: '**/*',
+              },
+              cache: {
+                paths: ['node_modules/**/*', '.next/cache/**/*'],
+              },
             },
           },
-          artifacts: {
-            baseDirectory: '/', // '.next' if not static
-            files: '**/*',
-          },
-          // cache: {
-          //   paths: ['node_modules/**/*', '.next/cache/**/*'], // not sure next cache
-          // },
-        },
+        ],
       }),
     })
 
