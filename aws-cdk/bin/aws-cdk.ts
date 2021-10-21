@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register'
+import * as dotenv from 'dotenv'
 import * as cdk from '@aws-cdk/core'
 import { AwsCdkStack } from '../lib/aws-cdk-stack'
+
+dotenv.config({ path: __dirname + '/../.env' })
 
 const app = new cdk.App()
 
@@ -29,6 +32,6 @@ new AwsCdkStack(app, 'AwsCdkStack', {
     owner: 'firxworx',
     repository: '@firxworx/fx-nextjs-stack',
     defaultBranch: 'main',
-    tokenSecretId: 'github-access-token',
+    tokenSecretId: 'github/token',
   },
 })
