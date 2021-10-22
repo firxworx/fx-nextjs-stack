@@ -18,6 +18,7 @@ const env = {
 
 new AwsCdkStack(app, 'AwsCdkStack', {
   env,
+  description: `AWS Amplify Stack - ${process.env.AWS_CDK_DOMAIN ?? process.env.AWS_CDK_PROJECT_TAG ?? ''}`,
   project: {
     tag: process.env.AWS_CDK_PROJECT_TAG ?? 'fx',
     domain: process.env.AWS_CDK_DOMAIN,

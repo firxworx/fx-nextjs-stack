@@ -70,7 +70,7 @@ export class AwsCdkStack extends cdk.Stack {
       },
       autoBranchDeletion: true,
       buildSpec: codebuild.BuildSpec.fromObject({
-        version: '1.0',
+        version: 1,
         frontend: {
           phases: {
             preBuild: {
@@ -85,7 +85,7 @@ export class AwsCdkStack extends cdk.Stack {
             files: ['**/*'],
           },
           cache: {
-            paths: ['node_modules/**/*', '.next/cache/**/*'],
+            paths: ['node_modules/**/*'], // '.next/cache/**/*'
           },
         },
       }),
