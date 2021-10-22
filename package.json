@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "build:static": "next build && next export -o dist",
+    "build:static": "NODE_ENV=production next build && next export -o dist",
     "dev": "next dev -p 3150",
     "export": "next export -o dist",
     "start": "next start",
