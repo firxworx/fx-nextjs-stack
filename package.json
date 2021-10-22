@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "build:static": "next build && next export -o dist",
+    "build:static": "NODE_ENV=production next build && next export -o dist",
     "dev": "next dev -p 3150",
     "export": "next export -o dist",
     "start": "next start",
@@ -17,6 +17,7 @@
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/typography": "^0.4.1",
+    "aws-amplify": "^4.3.2",
     "clsx": "^1.1.1",
     "next": "11.0.0",
     "react": "17.0.2",
