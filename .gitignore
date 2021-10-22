@@ -37,6 +37,6 @@ yarn-error.log*
 # project
 .env
 .vscode
-/dist/
+/dist
 /dev
-
+/notes
