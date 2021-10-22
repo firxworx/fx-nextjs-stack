@@ -63,3 +63,42 @@ A css classnames library such as `clsx`:
 
 `yarn add clsx`
 
+## AWS-CDK & Deployment with AWS Amplify
+
+Obtain an AWS account and ensure that it is configured for cli use.
+
+```sh
+yarn global add @aws-amplify/cli
+yarn global add aws-cdk
+```
+
+AWS packages are updated frequently. It is highly recommended to always ensure you are running the latest versions. To check and review for available package updates via yarn's interactive cli tool, run:
+
+```sh
+yarn global upgrade-interactive --latest
+```
+
+aws-cdk was initialized by running `cdk init --language typescript` in the repo's `aws-cdk/` folder. If you init aws-cdk on your own, note that cdk will use `npm` vs `yarn` so after installing you may want to delete `package-lock.json` and then run `yarn` to generate a `yarn.lock` file.
+
+If you have never used aws-cdk before in your target AWS account, you will need to run `cdk bootstrap` to initialize the base resources that aws-cdk requires to deploy synthesized CloudFormation templates to AWS.
+
+Note: the main project `tsconfig.json` has `./aws-cdk` added to the `exclude` paths.
+
+### Setup
+
+
+yarn add @aws-cdk/aws-apigateway @aws-cdk/aws-lambda @aws-cdk/aws-amplify @aws-cdk/aws-codecommit 
+
+### Store Github Personal Access Token as AWS Secret
+
+```sh
+# add a secret
+aws secretsmanager create-secret --name github/token --description "Github Personal Access Token for Deployment" --secret-string XXXX
+
+# retrieve details about a secret
+aws secretsmanager describe-secret --secret-id github/token
+```
+
+More information: <https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html>
+
+https://github.com/nikovirtala/cdk-amplify-console
