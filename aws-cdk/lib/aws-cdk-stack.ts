@@ -81,7 +81,7 @@ export class AwsCdkStack extends cdk.Stack {
             },
           },
           artifacts: {
-            baseDirectory: '/dist', // use '.next' if not static
+            baseDirectory: 'dist', // use '.next' if not static
             files: ['**/*'],
           },
           cache: {
