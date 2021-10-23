@@ -41,6 +41,11 @@ export class AwsCdkStack extends cdk.Stack {
     readonly staging: amplify.Branch
   }
 
+  // regarding url rewrites + redirects:
+  // https://github.com/aws-amplify/amplify-console/issues/97
+  // https://github.com/aws-amplify/amplify-console/issues/792 (note the slash hack)
+  // link of interest: https://github.com/riboseinc/terraform-aws-s3-cloudfront-website/issues/1
+
   constructor(scope: cdk.Construct, id: string, props: AwsCdkStackProps) {
     super(scope, id, props)
 
@@ -52,7 +57,7 @@ export class AwsCdkStack extends cdk.Stack {
       description: props.app.description,
       customRules: [
         ...(props.app.customRules ? props.app.customRules : []),
-        amplify.CustomRule.SINGLE_PAGE_APPLICATION_REDIRECT,
+        // since next export generates static files for each page, do not add amplify.CustomRule.SINGLE_PAGE_APPLICATION_REDIRECT
       ],
       environmentVariables: props.app.environmentVariables,
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
@@ -117,7 +122,7 @@ export class AwsCdkStack extends cdk.Stack {
           },
           {
             branch: this.branches.main,
-            prefix: 'www',
+            prefix: '',
           },
         ],
       })
