@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
+import { useRouter } from 'next/dist/client/router'
 
 // import Image from 'next/image'
 
@@ -32,20 +33,20 @@ const AvatarPlaceholder: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
 }
 
 interface NavLinkProps {
-  href: string
+  path: string
   name: string
   isCurrent?: boolean
 }
 
 const NavLink: React.FC<NavLinkProps & { variant: 'desktop' | 'mobile' }> = ({
-  href,
+  path,
   name,
   variant,
   isCurrent = false,
 }) => {
   return (
     <a
-      href={href}
+      href={path}
       className={clsx(
         'font-medium text-base',
         ' hover:border-gray-300 hover:text-gray-700',
@@ -67,22 +68,25 @@ const MenuLink: React.FC<{}> = ({}) => {
   return <></>
 }
 
+// prefix `path` values with a leading slash
 const links: Array<NavLinkProps> = [
   {
-    href: '/',
+    path: '/',
     name: 'Dashboard',
   },
   {
-    href: '/projects',
+    path: '/projects',
     name: 'Projects',
   },
   {
-    href: '/widgets',
+    path: '/widgets',
     name: 'Widgets',
   },
 ]
 
 export const Header: React.FC = () => {
+  const router = useRouter()
+
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -97,11 +101,11 @@ export const Header: React.FC = () => {
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
                   {links.map((link) => (
                     <NavLink
-                      key={link.href}
-                      href={link.href}
+                      key={link.path}
+                      path={link.path}
                       name={link.name}
                       variant="desktop"
-                      isCurrent={link.name === 'Dashboard'}
+                      isCurrent={link.path === router.pathname}
                     />
                   ))}
                 </div>
@@ -199,8 +203,8 @@ export const Header: React.FC = () => {
             <div className="pt-2 pb-3 space-y-1">
               {links.map((link) => (
                 <NavLink
-                  key={link.href}
-                  href={link.href}
+                  key={link.path}
+                  path={link.path}
                   name={link.name}
                   variant="mobile"
                   isCurrent={link.name === 'Dashboard'}
