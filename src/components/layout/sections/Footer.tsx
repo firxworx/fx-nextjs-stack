@@ -1,7 +1,9 @@
-export const Footer: React.FC = () => {
+import clsx from 'clsx'
+
+export const Footer: React.FC<{ className: string; innerClassName: string }> = ({ className, innerClassName }) => {
   return (
-    <footer className="mt-8 bg-gray-200">
-      <div className="container mx-auto text-center p-4">
+    <footer className={className}>
+      <div className={clsx(innerClassName, 'text-center')}>
         <a
           href="https://firxworx.com"
           target="_blank"

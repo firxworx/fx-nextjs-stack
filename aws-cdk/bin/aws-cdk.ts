@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import 'source-map-support/register'
 import * as dotenv from 'dotenv'
 import * as cdk from '@aws-cdk/core'
@@ -9,7 +10,7 @@ dotenv.config({ path: __dirname + '/../../.env' })
 const app = new cdk.App()
 
 /**
- * @see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
+ * {@link https://docs.aws.amazon.com/cdk/latest/guide/environments.html}
  */
 const env = {
   region: app.node.tryGetContext('region') || process.env.CDK_INTEG_REGION || process.env.CDK_DEFAULT_REGION,
@@ -20,8 +21,10 @@ new AwsCdkStack(app, 'AwsCdkStack', {
   env,
   description: `AWS Amplify Stack - ${process.env.AWS_CDK_DOMAIN ?? process.env.AWS_CDK_PROJECT_TAG ?? ''}`,
   project: {
-    tag: process.env.AWS_CDK_PROJECT_TAG ?? 'fx',
-    domain: process.env.AWS_CDK_DOMAIN,
+    tag: (process.env.AWS_CDK_PROJECT_TAG ?? 'fx').toLowerCase(),
+    domainName: process.env.AWS_CDK_DOMAIN,
+    nonSecretPreviewUsername: process.env.AWS_CDK_NON_SECRET_PREVIEW_BASIC_AUTH_USERNAME,
+    nonSecretPreviewPassword: process.env.AWS_CDK_NON_SECRET_PREVIEW_BASIC_AUTH_PASSWORD,
   },
   app: {
     name: process.env.AWS_CDK_AMPLIFY_APP_NAME ?? process.env.AWS_CDK_PROJECT_TAG ?? 'fx-nextjs-stack',
